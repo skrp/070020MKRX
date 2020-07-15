@@ -1,0 +1,40 @@
+###################################
+user must be root
+
+create jail-template
+create jail-world
+# TERMS ###########################
+//// HOST - node hostname
+//// INSTALLPATH - path with install files
+//// INT - network interface
+//// IP4 - node address { #.#.#.# }
+//// jIP4 - jail address { #.#.#.# }
+###################################
+% cd /usr/src
+% make -j2 buildworld
+% make installworld
+% make installworld DESTDIR=/usr/ANONI
+% make distribution DESTDIR=/usr/ANONI
+% cp -R /usr/local/ /usr/ANONI/usr/local/
+% zpool export USB 
+# JAIL_WORLD ######################
+% zpool import -o altroot=/usr/ANONI/mnt USB 
+% jail -c anoni
+% jls
+//// verify the jail has the number 1
+% jexec 1 /bin/csh
+###################################
+CHANGE DIR TO INSTALL PATH
+
+% cd /mnt/INSTALLPATH
+###################################
+% perl SRC/jinstall/1.WORLD 
+% perl SRC/jinstall/2.ANONI HOST
+% exit
+
+% zpool export USB
+
+//// unplug USB 
+###################################
+% reboot
+# --- REBOOT ---
