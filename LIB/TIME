@@ -1,0 +1,14 @@
+my $i = TIME();
+print "$i\n";
+sub TIME 
+{
+	my ($t, $mon, $day, $hour, $time);
+	$t = localtime();
+	my $yr = substr $t, -4, 4;
+	$mon = (split(/\s+/, $t))[1];
+	$day = (split(/\s+/, $t))[2];
+	$hour = (split(/\s+/, $t))[3];
+	$time = $yr.'_'.$mon.'_'.$day.'_'.$hour;
+	$time =~ s/:/_/g;
+	return $time;
+}

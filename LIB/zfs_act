@@ -1,0 +1,16 @@
+# LIST zfs with pools of SICC data
+sub zfs_act
+{
+	my (@pool, @active);
+	@pool = `zfs list`;
+	chomp @pool;
+###############################
+	for (@pool)
+	{
+##### change /pool/ to variabl
+		push (@active, $_) if (/pool/);
+	}
+###############################
+	chomp @active;
+	return @active;
+}

@@ -1,0 +1,7 @@
+sub hive_tomb
+{
+	my ($cnt, $ttl) = @_;
+	my ($time, $life);
+	$time = TIME();
+	print $Lfh "$NAME life: $BIRTH  $time yay: $YAY fail: $FAIL\n";
+}

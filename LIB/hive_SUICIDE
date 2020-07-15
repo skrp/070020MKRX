@@ -1,0 +1,11 @@
+sub suicide 
+{
+	my ($cnt, $ttl, @QUE) = @_;
+	my $curTIME = TIME();
+	print $Lfh "FKTHEWORLD $curTIME\n";
+	tombstone($cnt, $ttl);
+	que_flush(@QUE);
+	move($TODO, $FEED);
+	print $Lfh "BUuUURP\n";
+	die;
+}

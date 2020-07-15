@@ -1,0 +1,13 @@
+sub cr_grp
+{
+  my (@cr_c) = @_;
+  my @cr_grp;
+
+  die "FAIL cr_grp undef ARRAY cr_c\n" unless defined $cr_c[0];
+  push(@cr_grp, $_) for (@cr_c);
+  push(@cr_grp, "x$_") for (@cr_c);
+
+  `pw groupadd $_` for (@cr_grp);
+  
+  return @cr_grp;
+}

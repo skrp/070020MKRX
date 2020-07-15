@@ -1,0 +1,34 @@
+#use Digest::SHA;
+#use File::Copy;
+# cr_keymeta
+#my ($kdump, $mdump, $ip4, $node, $igrp, $iu) = @ARGV;
+#cr_key($kdump, $mdump, $ip4, $node, $igrp, $iu);
+############################
+sub cr_normkey
+{
+	my ($kdump, $mdump, $node, $igrp, $iu) = @_;
+	die "ARG1 keydump ARG2 keymetadump ARG3 node ARG4 grp ARG5 usr\n" unless (defined $iu);
+############################
+	my $key = "/usr/home/$iu/.ssh/id_rsa";
+	my $pub = $key.'.pub';
+############################
+	`ssh-keygen -q -N "" -t rsa -b 2048 -f $key`;
+############################
+	my $isha = f_digest($key);
+	move($key, "$kdump/$isha");
+############################
+	my @pub = slurp($pub);
+	my @pp = split(" ", $pub[0]);
+
+	open(my $pfh, '>', $pub);
+	print $pfh "$pp[0] $pp[1]";
+	close $pfh;
+
+	copy($pub, "$kdump/p$isha");
+	move($pub, "/usr/home/$iu/.ssh/authorized_keys");
+############################
+	cr_keymeta($mdump, $node, $igrp, $iu, $isha);
+############################
+	print "YAY $key\n";
+}
+############################

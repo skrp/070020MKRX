@@ -1,0 +1,14 @@
+sub cr_keymeta
+{
+	my ($mdump, $node, $igrp, $iu, $isha) = @_;
+	
+	my $kmd = "$mdump/k$isha";
+	die "FAIL keymeta dump $kmd\n" unless (-d $kmd);
+	open(my $keyfh, '>>', $kmd);
+	
+	print $keyfh "$node\n";
+	print $keyfh "$igrp\n";
+	print $keyfh "$iu\n";
+	
+	close $keyfh;
+}

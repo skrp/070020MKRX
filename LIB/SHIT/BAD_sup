@@ -1,0 +1,38 @@
+#!/usr/local/bin/perl
+use strict; use warnings;
+#########################
+# OPEN master list
+# first used accounts: wipe dir & rm from master list
+# second compare /usr/home list to master list
+# alert & wipe non-master-list
+#########################
+sub sup
+{
+	my(%h, %j);
+	my @h = slurp('/var/log/used');
+	my @j = slurp('/usr/ANONI/var/log/used');
+
+	wipe($_, '/usr/home') for (@h);
+	wipe($_, '/usr/ANONI/usr/home') for (@j);
+}
+sub wipe
+{
+	my ($usr, $udir) = @_;
+	my $ssh = "$udir/.ssh/";
+	`rm -r $ssh*`;	
+	mkdir $ssh;
+	`chmod -R 000 $ssh`;
+	return 0;
+}
+sub slurp 
+{
+	my ($file) = @_;
+	my $subfh; 
+	my @slurp;
+
+	open($subfh, '<', $file) or die "FAIL slurp $file : $!\n";
+	@slurp = readline $subfh;
+	close $subfh; chomp @slurp;
+
+	return @slurp;
+}

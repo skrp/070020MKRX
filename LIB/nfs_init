@@ -1,0 +1,12 @@
+sub init_nfs
+{
+	my ($node, $pool) = @_;
+	my $loc = "/usr/ANONI/nfs/$node/$pool";
+	print "FAIL node dir $node\n" unless (-d "/usr/ANONI/nfs/$node/";
+
+	`zpool import -f $pool`;
+	`zfs set mountpoint=$loc $pool`;
+	`zfs set sharenfs=on $pool`;
+	`zfs set readonly=on $pool`;
+	print "FAIL $pool\n" unless (-d "$loc");
+}

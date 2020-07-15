@@ -1,0 +1,14 @@
+sub live
+{
+	my ($cnt, $ttl);
+	$cnt = 0;
+	SLEEP($cnt, $ttl, @QUE) if (-e $SLEEP);
+	act();
+	if ($cnt % $RATE == 0)
+	   { tombstone($cnt, $ttl) }
+	$cnt++;
+}
+sub act
+{
+# DEMON specific code
+}
