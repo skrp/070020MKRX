@@ -32,7 +32,12 @@ set the deflaut screen
 >>>> cd /usb/
 
 % /bin/sh INSTALLPATH/install/1.INIT
-% perl INSTALLPATH/SRC/install/2.WORLD node
+#
+# This will not work from from github
+# use the following command instead
+# pkg-install perl5
+      % perl INSTALLPATH/SRC/install/2.WORLD node
+# 
 % perl INSTALLPATH/SRC/install/3.PERM node
 % perl INSTALLPATH/SRC/install/4.USR node
 % perl INSTALLPATH/SRC/install/5.PKG
